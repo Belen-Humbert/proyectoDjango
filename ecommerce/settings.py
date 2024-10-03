@@ -37,17 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD:appDjango/appDjango/settings.py
-    'appDjango',
-    'carrito_compras',
-    'catalogo',
-
-=======
     'login_app',
     'catalogo_app',
     'carrito_app',
     'crud_app',
->>>>>>> 8c5dea98f8c1764e666c8d6e4db1b3db4de2b20a:ecommerce/settings.py
 ]
 
 MIDDLEWARE = [

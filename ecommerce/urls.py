@@ -9,4 +9,5 @@ urlpatterns = [
     path('catalogo/', include('catalogo_app.urls')),
     path('carrito/', include('carrito_app.urls')),
     path('crud/', include('crud_app.urls')),
+
 ]
