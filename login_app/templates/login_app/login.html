@@ -28,5 +28,11 @@
 
         <button type="submit">Iniciar sesión</button>
     </form>
+
+    <!-- Enlaces para registrarse y recuperar contraseña -->
+    <div>
+        <a href="{% url 'registro' %}">Registrarse</a> | 
+        <a href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a>
+    </div>
 </body>
 </html>

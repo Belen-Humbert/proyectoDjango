@@ -126,3 +126,12 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configuración de envío de correos electrónicos
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'tu_correo@gmail.com'  # Cambia esto a tu correo
+EMAIL_HOST_PASSWORD = 'tu_contraseña'  # Cambia esto a la contraseña de tu correo
+DEFAULT_FROM_EMAIL = 'tu_correo@gmail.com'  # Correo que aparecerá como remitente
