@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Carrito de Compras</title>
 </head>
+
 <body>
-    <h1>Carrito de Compras</h1>
     <nav>
         <a href="{% url 'home' %}">Inicio</a> |
         <a href="{% url 'login' %}">Login</a> |
@@ -13,5 +14,13 @@
         <a href="{% url 'catalogo' %}">Catálogo</a> |
         <a href="{% url 'crud' %}">CRUD</a>
     </nav>
+    <h1>Carrito de Compras</h1>
+    <ul>
+        {% for item in carrito.items.all %}
+        <li>{{ item.producto.nombre }} - Cantidad: {{ item.cantidad }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'crear_orden' %}">Crear Orden</a>
 </body>
+
 </html>
