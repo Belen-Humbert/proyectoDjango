@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import crud_view
+from . import views 
 
 urlpatterns = [
-    path('', crud_view, name='crud'),
+    path('registrarUser/', views.registrarUsuario, name='registrarUser'),
 ]
