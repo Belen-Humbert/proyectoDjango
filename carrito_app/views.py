@@ -18,7 +18,7 @@ def agregar_al_carrito(request, product_id):
 
 @login_required
 def ver_carrito(request):
-    carrito = Cart.objects.get(user=request.user)
+    carrito = Cart.objects.get_or_create(user=request.user)
     return render(request, 'carrito_app/ver_carrito.html', {'carrito': carrito})
 
 @login_required
