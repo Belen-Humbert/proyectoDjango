@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordResetForm
 from django.utils.translation import gettext_lazy as _
+from .forms import UserRegisterForm
 
 def login_view(request):
     # Aquí puedes agregar la lógica de autenticación o simplemente renderizar el formulario de login
