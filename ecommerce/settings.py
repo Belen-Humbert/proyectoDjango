@@ -139,3 +139,4 @@ DEFAULT_CHARSET = 'utf-8'
 
 #redirige a / despues de cerrar sesion
 LOGOUT_REDIRECT_URL = 'home'
+

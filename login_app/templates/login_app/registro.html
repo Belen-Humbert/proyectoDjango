@@ -3,24 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/registro.css' %}">
     <title>Registrarse</title>
 </head>
 <body>
-    <h2>Registrarse</h2>
-    
-    <form method="POST" action= "{% url 'registrarUser' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Crear Cuenta</button>
-    </form>
+    <div class="registro-container">
+        <h2>Registrarse</h2>
+        
+        <form method="POST" action="{% url 'registrarUser' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Crear Cuenta</button>
+        </form>
 
-    <!-- Mensaje de éxito o error -->
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        <!-- Mensaje de éxito o error -->
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="links">
+            <a href="{% url 'login' %}">¿Ya tienes una cuenta? Inicia sesión</a>
+        </div>
+    </div>
 </body>
 </html>
