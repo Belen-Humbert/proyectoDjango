@@ -2,9 +2,10 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start; /* Cambia align-items a flex-start para permitir márgenes superiores */
+    min-height: 100vh; /* Cambia height a min-height para evitar problemas con el scroll */
     margin: 0;
+    padding: 20px 0; /* Agrega un padding superior e inferior */
     background-color: #f5f7fa;
 }
 
@@ -13,16 +14,20 @@ body {
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px 
+    rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 /* Estilo de título */
-.registro-container h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
+.registro-container {
+    width: 500px; 
+    padding: 20px;
+    margin: 20px 0; /* Márgenes superior e inferior */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 /* Etiquetas de los formularios */
@@ -85,5 +90,5 @@ body {
 
 /* Espacio del formulario */
 .registro-container form {
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
