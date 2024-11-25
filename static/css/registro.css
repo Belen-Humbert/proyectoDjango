@@ -1,94 +1,193 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Cambia align-items a flex-start para permitir márgenes superiores */
-    min-height: 100vh; /* Cambia height a min-height para evitar problemas con el scroll */
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 20px 0; /* Agrega un padding superior e inferior */
-    background-color: #f5f7fa;
 }
 
 .registro-container {
-    width: 500px; 
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 
-    rgba(0, 0, 0, 0.1);
+    width: 600px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    position: relative;
 }
 
-/* Estilo de título */
-.registro-container {
-    width: 500px; 
-    padding: 20px;
-    margin: 20px 0; /* Márgenes superior e inferior */
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+.icon-circle {
+    width: 70px;
+    height: 70px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Etiquetas de los formularios */
-.registro-container label {
-    display: block;
-    font-size: 14px;
+.icon-circle img {
+    width: 40px;
+    height: 40px;
+}
+
+h2 {
+    margin-top: 50px;
+    margin-bottom: 20px;
     color: #333;
-    text-align: left;
-    margin-bottom: 5px;
-    padding-left: 5px;
+    font-size: 20px;
+    font-weight: 600;
 }
 
-/* Estilo para los campos de entrada */
-.registro-container input {
+.registro-form .form-group {
+    margin-bottom: 15px;
+}
+
+.registro-form input {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0 15px;
+    padding: 12px 10px;
     border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    transition: all 0.3s;
+}
+
+.registro-form input:focus {
+    outline: none;
+    border-color: #6c63ff;
+    background-color: #fff;
+    box-shadow: 0 0 4px rgba(108, 99, 255, 0.3);
+}
+
+.create-account-btn {
+    margin-bottom: 20px; 
+    background-color: #003366;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.create-account-btn:hover {
+    background-color: transparent;
+    color: #003366;
+    border: 2px solid #003366;
+}
+
+.links a {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #003366;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: #003C71;
+}
+
+.error-messages {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+input[type="text"], 
+input[type="password"],
+input[type="email"] {
+    width: 100%; 
+    padding: 10px;
+    margin: 3px 0;
+    border: 2px solid #ddd;
     border-radius: 8px;
     font-size: 14px;
     box-sizing: border-box;
 }
 
-/* Estilo del botón */
-.registro-container button {
-    width: 100%;
-    padding: 10px;
-    background-color: #0066ff;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+input[type="text"]:focus, 
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border-color: #003B5C;
+    outline: none;
 }
 
-.registro-container button:hover {
-    background-color: #0052cc;
+/* Media Queries */
+@media (max-width: 768px) {
+    .registro-container {
+        width: 80%; /* Ajusta el ancho al 80% en pantallas más pequeñas */
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 18px; /* Reducir el tamaño de la fuente en pantallas pequeñas */
+    }
+
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+    }
+
+    .icon-circle img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .create-account-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    input[type="text"], 
+    input[type="password"],
+    input[type="email"] {
+        padding: 8px;
+        font-size: 12px;
+    }
 }
 
-/* Estilos para los enlaces */
-.registro-container a {
-    color: #0066ff;
-    font-size: 14px;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
+@media (max-width: 480px) {
+    .registro-container {
+        width: 90%; /* Ajusta el ancho al 90% en pantallas muy pequeñas */
+        padding: 15px;
+    }
 
-.registro-container a:hover {
-    color: #0052cc;
-}
+    h2 {
+        font-size: 16px; /* Reducir aún más el tamaño de la fuente */
+    }
 
-/* Enlaces al final */
-.registro-container .links {
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-between;
-}
+    .icon-circle {
+        width: 50px;
+        height: 50px;
+    }
 
-/* Espacio del formulario */
-.registro-container form {
-    margin-bottom: 50px;
+    .icon-circle img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .create-account-btn {
+        font-size: 14px;
+        padding: 8px 14px;
+    }
+
+    input[type="text"], 
+    input[type="password"],
+    input[type="email"] {
+        padding: 8px;
+        font-size: 12px;
+    }
 }
