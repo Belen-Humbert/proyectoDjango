@@ -9,17 +9,24 @@
 </head>
 <body>
     <div class="registro-container">
+        <!-- Ícono circular -->
+        <div class="icon-circle">
+            <img src="{% static 'images/icon.png' %}" alt="Icono de Registro">
+        </div>
+
         <h2>Registrarse</h2>
         
-        <form method="POST" action="{% url 'registrarUser' %}">
+        <form method="POST" action="{% url 'registrarUser' %}" class="registro-form">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Crear Cuenta</button>
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="create-account-btn">Crear Cuenta</button>
         </form>
 
         <!-- Mensaje de éxito o error -->
         {% if messages %}
-            <ul>
+            <ul class="error-messages">
                 {% for message in messages %}
                     <li>{{ message }}</li>
                 {% endfor %}
