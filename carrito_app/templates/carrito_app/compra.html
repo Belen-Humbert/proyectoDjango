@@ -7,14 +7,15 @@
     <title>Finalizar Compra</title>
   </head>
   <body>
+    {% include 'nav.html' %}
     <div class="container mx-auto px-4 py-8">
-      <h1 class="text-2xl font-bold mb-6">
-        Solo queda un paso para completar la compra ;]
+      <h1 class="text-2xl font-bold mb-6 text-center">
+        Último paso antes de finalizar la compra
       </h1>
       <form
         method="POST"
         action="{% url 'ver_orden' orden.id %}"
-        class="space-y-4"
+        class="max-w-lg mx-auto space-y-4"
       >
         {% csrf_token %}
         <div>
@@ -30,33 +31,37 @@
           </select>
         </div>
         <div>
-          <label for="ubicacion">Ubicación:</label>
+          <label for="ubicacion" class="block font-medium">Ubicación:</label>
           <input
             type="text"
             id="ubicacion"
             name="ubicacion"
             placeholder="Tu dirección"
             required
+            class="w-full p-2 border rounded"
           />
         </div>
-        <button
-          type="submit"
-          class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-        >
-          Continuar con la Compra
-        </button>
-      </form>
 
-      <form method="POST" action="{% url 'gestionar_compra' orden.id %}">
-        {% csrf_token %}
-        <button
-          type="submit"
-          name="accion"
-          value="cancelar"
-          class="w-full bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700"
-        >
-          Cancelar Compra
-        </button>
+        <!-- Botones alineados horizontalmente con menor distancia -->
+        <div class="flex justify-between gap-2"> <!-- Reducir gap a 2 -->
+          <button
+            type="submit"
+            class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 w-auto"
+          >
+            Continuar con la Compra
+          </button>
+          <form method="POST" action="{% url 'gestionar_compra' orden.id %}">
+            {% csrf_token %}
+            <button
+              type="submit"
+              name="accion"
+              value="cancelar"
+              class="bg-transparent text-red-600 border-2 border-red-600 py-2 px-6 rounded hover:bg-red-600 hover:text-white w-auto"
+            >
+              Cancelar Compra
+            </button>
+          </form>
+        </div>
       </form>
     </div>
   </body>
