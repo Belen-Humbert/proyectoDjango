@@ -1,35 +1,111 @@
-<header class="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-  <div class="container mx-auto flex h-16 items-center px-4">
-    <a href="/" class="flex items-center space-x-2">
-      <i data-lucide="smartphone" class="h-6 w-6 text-blue-600"></i>
-      <span class="font-bold text-xl">TechStore</span>
-    </a>
-    <nav class="hidden md:flex ml-auto gap-6">
-      <a class="text-sm font-medium hover:text-blue-600 transition-colors" href="{% url 'catalogo' %}">Productos</a>
-      <a class="text-sm font-medium hover:text-blue-600 transition-colors" href="#">Ofertas</a>
-      <a class="text-sm font-medium hover:text-blue-600 transition-colors" href="#">Soporte</a>
-      {% if user.is_authenticated %}
-        <a class="text-sm font-medium hover:text-blue-600 transition-colors" href="{% url 'ver_carrito' %}">Carrito</a>
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @keyframes slideDown {
+            0% { max-height: 0; opacity: 0; }
+            100% { max-height: 300px; opacity: 1; }
+        }
+        .slide-down {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <div class="container mx-auto px-4">
+            <div class="flex h-16 items-center justify-between">
+                <a href="{% url 'home' %}" class="flex items-center space-x-2">
+                    <i data-lucide="smartphone" class="h-6 w-6 text-blue-600"></i>
+                    <span class="font-bold text-xl">TechStore</span>
+                </a>
 
-        {% if user.is_superuser %}
-        <a href="/admin/" 
-           class="text-sm font-medium hover:text-blue-600 transition-colors">
-           Panel de Administración
-        </a>
-        {% endif %}
-        
-        <a href="#" onclick="document.getElementById('logout-form').submit(); return false;" class="text-sm font-medium hover:text-blue-600 transition-colors">Cerrar Sesión</a>
-        
-        
+                <nav class="hidden md:flex space-x-4">
+                    <a class="text-sm font-medium hover:text-blue-600 transition-colors" href="{% url 'catalogo' %}">Productos</a>
+                    {% if user.is_authenticated %}
+                        <a class="text-sm font-medium hover:text-blue-600 transition-colors" href="{% url 'ver_carrito' %}">Carrito</a>
+                        {% if user.is_superuser %}
+                            <a href="{% url 'admin:index' %}" class="text-sm font-medium hover:text-blue-600 transition-colors">Panel de Administración</a>
+                        {% endif %}
+                        <a href="#" onclick="document.getElementById('logout-form').submit(); return false;" class="text-sm font-medium hover:text-blue-600 transition-colors">Cerrar Sesión</a>
+                        <form id="logout-form" action="{% url 'logout' %}" method="post" class="hidden">
+                            {% csrf_token %}
+                        </form>
+                    {% else %}
+                        <a class="text-sm font-medium hover:text-blue-600 transition-colors" href="{% url 'login' %}">Iniciar Sesión</a>
+                    {% endif %}
+                </nav>
 
-        <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
-          {% csrf_token %}
-        </form>
-      {% else %}
-        <a class="text-sm font-medium hover:text-blue-600 transition-colors" href="{% url 'login' %}">Iniciar Sesión</a>
-      {% endif %}
-    </nav>
+                <button class="md:hidden p-2" id="menu-toggle" aria-label="Abrir menú">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                </button>
+            </div>
 
-    <button class="ml-2 p-2 md:hidden"><i data-lucide="menu" class="h-6 w-6"></i></button>
-  </div>
-</header>
+            <nav id="mobile-menu" class="md:hidden hidden">
+                <div class="py-2 space-y-1 flex flex-col items-center">
+                    <a class="block px-4 py-2 text-sm font-medium hover:bg-gray-100 transition-colors" href="{% url 'catalogo' %}">Productos</a>
+                    <a class="block px-4 py-2 text-sm font-medium hover:bg-gray-100 transition-colors" href="">Ofertas</a>
+                    <a class="block px-4 py-2 text-sm font-medium hover:bg-gray-100 transition-colors" href="">Soporte</a>
+                    {% if user.is_authenticated %}
+                        <a class="block px-4 py-2 text-sm font-medium hover:bg-gray-100 transition-colors" href="{% url 'ver_carrito' %}">Carrito</a>
+                        {% if user.is_superuser %}
+                            <a href="{% url 'admin:index' %}" class="block px-4 py-2 text-sm font-medium hover:bg-gray-100 transition-colors">Panel de Administración</a>
+                        {% endif %}
+                        <a href="#" onclick="document.getElementById('logout-form').submit(); return false;" class="block px-4 py-2 text-sm font-medium hover:bg-gray-100 transition-colors">Cerrar Sesión</a>
+                    {% else %}
+                        <a class="block px-4 py-2 text-sm font-medium hover:bg-gray-100 transition-colors" href="{% url 'login' %}">Iniciar Sesión</a>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('slide-down');
+            const icon = menuToggle.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.setAttribute('data-lucide', 'menu');
+            } else {
+                icon.setAttribute('data-lucide', 'x');
+            }
+            lucide.createIcons();
+        });
+
+        // Cerrar el menú móvil cuando se hace clic en un enlace
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuToggle.querySelector('i').setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                mobileMenu.classList.add('hidden');
+                menuToggle.querySelector('i').setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>

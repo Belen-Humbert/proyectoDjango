@@ -16,14 +16,67 @@
 
         <h2>Registrarse</h2>
         
-        <form method="POST" action="{% url 'registrarUser' %}" class="registro-form">
+        <!-- <form method="POST" action="{% url 'registrarUser' %}" class="registro-form">
             {% csrf_token %}
             <div class="form-group">
                 {{ form.as_p }}
             </div>
             <button type="submit" class="create-account-btn">Crear Cuenta</button>
+        </form> -->
+        <form method="POST" action="{% url 'registrarUser' %}" class="registro-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="mb-4">
+                    <label for="id_username">Nombre de Usuario</label>
+                    {{ form.username }}
+                    <p class="text-red-500">
+                        {% if form.username.errors %}
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                </div>
+        
+                <div class="mb-4">
+                    <label for="id_email">Correo Electrónico</label>
+                    {{ form.email }}
+                    <p class="text-red-500">
+                        {% if form.email.errors %}
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                </div>
+        
+                <div class="mb-4">
+                    <label for="id_password1">Contraseña</label>
+                    {{ form.password1 }}
+                    <p class="text-red-500">
+                        {% if form.password1.errors %}
+                            {% for error in form.password1.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                </div>
+        
+                <div class="mb-4">
+                    <label for="id_password2">Confirmar Contraseña</label>
+                    {{ form.password2 }}
+                    <p class="text-red-500">
+                        {% if form.password2.errors %}
+                            {% for error in form.password2.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <button type="submit" class="create-account-btn">Crear Cuenta</button>
         </form>
-
+        
         <!-- Mensaje de éxito o error -->
         {% if messages %}
             <ul class="error-messages">
