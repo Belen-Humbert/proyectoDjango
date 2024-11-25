@@ -174,15 +174,15 @@ def gestionar_compra(request, orden_id):
                 item.product.save()
             orden.user.cart.items.all().delete()
 
-            messages.success(request, "Compra finalizada correctamente.")
+            # messages.success(request, "Compra finalizada correctamente.")
             return redirect('catalogo')
         
         elif accion == 'cancelar':
             # Lógica para cancelar la orden
             orden.delete()  # Elimina la orden de la base de datos
-            messages.info(request, "Orden cancelada correctamente.")
+            # messages.info(request, "Orden cancelada correctamente.")
             return redirect('catalogo')
 
         else:
-            messages.error(request, "Acción no válida.")
+            # messages.error(request, "Acción no válida.")
             return redirect('catalogo')

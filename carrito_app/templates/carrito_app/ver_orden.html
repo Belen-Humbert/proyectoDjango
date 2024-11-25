@@ -4,13 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
     <title>Orden Final</title>
   </head>
   <body class="bg-gray-100">
-    {% include 'nav.html' %}
+    {% include 'nav.html' %} 
+    
     <div class="container mx-auto px-4 py-12">
-      <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8" id="orden-container">
+      <div
+        class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8"
+        id="orden-container"
+      >
         <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">
           Resumen de tu Orden
         </h1>
@@ -18,56 +25,82 @@
         <!-- Progress indicator -->
         <div class="flex items-center justify-center mb-8">
           <div class="flex items-center text-green-600">
-            <span class="h-10 w-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">
+            <span
+              class="h-10 w-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold"
+            >
               <i class="fas fa-check"></i>
             </span>
             <span class="ml-2 font-medium">Carrito</span>
           </div>
           <div class="flex-1 h-1 mx-4 bg-green-600"></div>
           <div class="flex items-center text-green-600">
-            <span class="h-10 w-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">
+            <span
+              class="h-10 w-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold"
+            >
               <i class="fas fa-check"></i>
             </span>
             <span class="ml-2 font-medium">Detalles</span>
           </div>
           <div class="flex-1 h-1 mx-4 bg-green-600"></div>
           <div class="flex items-center text-green-600">
-            <span class="h-10 w-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">3</span>
+            <span
+              class="h-10 w-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold"
+              >3</span
+            >
             <span class="ml-2 font-medium">Confirmación</span>
           </div>
         </div>
 
         <div class="bg-gray-50 rounded-lg p-6 mb-6">
-          <h2 class="text-xl font-semibold mb-4 text-gray-700">Detalles de la Orden</h2>
+          <h2 class="text-xl font-semibold mb-4 text-gray-700">
+            Detalles de la Orden
+          </h2>
           <div class="space-y-3">
             <p class="flex justify-between">
-              <span class="text-gray-600"><i class="fas fa-money-bill-wave mr-2"></i>Total:</span>
+              <span class="text-gray-600"
+                ><i class="fas fa-money-bill-wave mr-2"></i>Total:</span
+              >
               <strong class="text-gray-800">${{ orden.total }}</strong>
             </p>
             <p class="flex justify-between">
-              <span class="text-gray-600"><i class="fas fa-credit-card mr-2"></i>Tipo de Pago:</span>
+              <span class="text-gray-600"
+                ><i class="fas fa-credit-card mr-2"></i>Tipo de Pago:</span
+              >
               <strong class="text-gray-800">{{ orden.tipo_pago }}</strong>
             </p>
             <p class="flex justify-between">
-              <span class="text-gray-600"><i class="fas fa-map-marker-alt mr-2"></i>Ubicación:</span>
+              <span class="text-gray-600"
+                ><i class="fas fa-map-marker-alt mr-2"></i>Ubicación:</span
+              >
               <strong class="text-gray-800">{{ orden.ubicacion }}</strong>
             </p>
           </div>
         </div>
 
-        <form method="POST" action="{% url 'gestionar_compra' orden.id %}" class="space-y-4" id="compra-form">
+        <form
+          method="POST"
+          action="{% url 'gestionar_compra' orden.id %}"
+          class="space-y-4"
+          id="compra-form"
+        >
           {% csrf_token %}
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div
+            class="flex flex-col sm:flex-row justify-between items-center gap-4"
+          >
             <button
-              type="button"
-              id="finalizar-btn"
+            id="finalizar-btn"
+              type="submit"
+              name="accion"
+              value="finalizar"
               class="w-full sm:w-auto bg-green-600 text-white py-3 px-6 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-150 ease-in-out transform hover:scale-105"
             >
               <i class="fas fa-check-circle mr-2"></i>
               Finalizar Compra
             </button>
             <button
-              type="button"
+              type="submit"
+              name="accion"
+              value="cancelar"
               class="w-full sm:w-auto bg-transparent text-red-600 border-2 border-red-600 py-3 px-6 rounded-md hover:bg-red-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-150 ease-in-out"
             >
               <i class="fas fa-times mr-2"></i>
@@ -77,25 +110,36 @@
         </form>
 
         <!-- Confirmación de compra -->
-        <div id="confirmacion" class="hidden bg-green-100 text-green-800 p-4 rounded-lg mt-8 text-center">
+        <div
+          id="confirmacion"
+          class="hidden bg-green-100 text-green-800 p-4 rounded-lg mt-8 text-center"
+        >
           <i class="fas fa-check-circle text-4xl mb-2"></i>
           <p class="text-xl font-semibold">¡Compra Confirmada!</p>
-          <p class="mt-2">Gracias por tu compra. Recibirás un correo con los detalles de tu pedido.</p>
+          <p class="mt-2">
+            Gracias por tu compra. Recibirás un correo con los detalles de tu
+            pedido.
+          </p>
         </div>
       </div>
     </div>
 
     <script>
       // Evento para mostrar la confirmación cuando el usuario finaliza la compra
-      document.getElementById('finalizar-btn').addEventListener('click', function() {
-        document.getElementById('orden-container').innerHTML = `
+      document
+        .getElementById("finalizar-btn")
+        .addEventListener("click", function () {
+          document.getElementById("orden-container").innerHTML = `
           <div class="bg-green-100 text-green-800 p-4 rounded-lg mt-8 text-center">
             <i class="fas fa-check-circle text-4xl mb-2"></i>
             <p class="text-xl font-semibold">¡Compra Confirmada!</p>
             <p class="mt-2">Gracias por tu compra. Recibirás un correo con los detalles de tu pedido.</p>
+            <a href="{% url 'catalogo' %}" class="inline-block bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+            Ir a la tienda
+        </a>
           </div>
         `;
-      });
+        });
     </script>
   </body>
 </html>
