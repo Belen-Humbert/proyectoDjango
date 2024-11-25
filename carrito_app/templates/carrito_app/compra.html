@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Finalizar Compra</title>
+  </head>
+  <body>
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-2xl font-bold mb-6">
+        Solo queda un paso para completar la compra ;]
+      </h1>
+      <form
+        method="POST"
+        action="{% url 'ver_orden' orden.id %}"
+        class="space-y-4"
+      >
+        {% csrf_token %}
+        <div>
+          <label for="tipo_pago" class="block font-medium">Tipo de Pago</label>
+          <select
+            name="tipo_pago"
+            id="tipo_pago"
+            class="w-full p-2 border rounded"
+          >
+            <option value="tarjeta">Tarjeta de crédito/débito</option>
+            <option value="efectivo">Efectivo</option>
+            <option value="mp">Mercado Pago</option>
+          </select>
+        </div>
+        <div>
+          <label for="ubicacion">Ubicación:</label>
+          <input
+            type="text"
+            id="ubicacion"
+            name="ubicacion"
+            placeholder="Tu dirección"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+        >
+          Continuar con la Compra
+        </button>
+      </form>
+
+      <form method="POST" action="{% url 'gestionar_compra' orden.id %}">
+        {% csrf_token %}
+        <button
+          type="submit"
+          name="accion"
+          value="cancelar"
+          class="w-full bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700"
+        >
+          Cancelar Compra
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -109,12 +109,80 @@ def crear_orden(request):
             cantidad=item.cantidad,
             precio=item.producto.precio
         )
-        # Actualizar stock
-        item.producto.stock -= item.cantidad
-        item.producto.save()
+
+        # No actualizar stock ni vaciar carrito aún
+    return render(request, 'carrito_app/compra.html', {'orden': orden})    
+
+
+# @login_required
+# def compra(request, orden_id):
+#     orden = get_object_or_404(Order, id=orden_id, user=request.user)
+
+#     if request.method == 'POST':
+        #tipo_pago = request.POST.get('tipo_pago')
+        #ubicacion = request.POST.get('ubicacion')
+        
+         #if tipo_pago and ubicacion:
+            # Actualizar orden con datos adicionales
+         #   orden.tipo_pago = tipo_pago
+          #  orden.ubicacion = ubicacion
+           # orden.status = 'Completo'
+            #orden.save()
+
+            # Actualizar stock y vaciar carrito
+    #         for item in orden.orderitem_set.all():
+    #             item.product.stock -= item.cantidad
+    #             item.product.save()
+    #         orden.user.cart.items.all().delete()
+
+    #         return redirect('catalogo')
+    # else:
+    #         messages.error(request, "Por favor completa todos los campos.")
+
+    # return render(request, 'carrito_app/compra.html', {'orden': orden})
+
+@login_required
+def ver_orden(request, orden_id):
+    # Obtener la orden actualizada
+    orden = get_object_or_404(Order, id=orden_id, user=request.user)
     
-    # Limpiar el carrito
-    carrito.items.all().delete()
-    
-    messages.success(request, f"Orden #{orden.id} creada exitosamente.")
-    return redirect('ver_orden', orden.id)
+    if request.method == 'POST':
+        tipo_pago = request.POST.get('tipo_pago')
+        ubicacion = request.POST.get('ubicacion')
+        
+        if tipo_pago and ubicacion:
+            # Actualizar orden con datos adicionales
+            orden.tipo_pago = tipo_pago
+            orden.ubicacion = ubicacion
+            orden.status = 'Completo'
+            orden.save()
+
+
+    # Renderizar la orden en la plantilla
+    return render(request, 'carrito_app/ver_orden.html', {'orden': orden})    
+
+
+@login_required
+def gestionar_compra(request, orden_id):
+    orden = get_object_or_404(Order, id=orden_id, user=request.user)
+    if request.method == 'POST':
+        accion = request.POST.get('accion')
+        if accion == 'finalizar':
+            # Lógica para finalizar la compra
+            for item in orden.orderitem_set.all():
+                item.product.stock -= item.cantidad
+                item.product.save()
+            orden.user.cart.items.all().delete()
+
+            messages.success(request, "Compra finalizada correctamente.")
+            return redirect('catalogo')
+        
+        elif accion == 'cancelar':
+            # Lógica para cancelar la orden
+            orden.delete()  # Elimina la orden de la base de datos
+            messages.info(request, "Orden cancelada correctamente.")
+            return redirect('catalogo')
+
+        else:
+            messages.error(request, "Acción no válida.")
+            return redirect('catalogo')

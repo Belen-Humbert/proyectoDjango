@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Orden Final</title>
+  </head>
+  <body>
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-2xl font-bold mb-6">Resumen de tu Orden</h1>
+
+      <div>
+        <p><strong>Total:</strong> ${{ orden.total }}</p>
+        <p><strong>Tipo de Pago:</strong> {{ orden.tipo_pago }}</p>
+        <p><strong>Ubicación:</strong> {{ orden.ubicacion }}</p>
+      </div>
+
+      <div class="mt-6 space-x-4">
+        <!-- Botón para finalizar -->
+        <form method="POST" action="{% url 'gestionar_compra' orden.id %}">
+          {% csrf_token %}
+          <button
+            type="submit"
+            name="accion"
+            value="finalizar"
+            class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
+          >
+            Finalizar Compra
+          </button>
+          <button
+            type="submit"
+            name="accion"
+            value="cancelar"
+            class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700"
+          >
+            Cancelar Compra
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

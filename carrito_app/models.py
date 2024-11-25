@@ -24,7 +24,12 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2)
     creado_en = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, default='Pending')
-
+    tipo_pago = models.CharField(max_length=50, choices=[
+        ('tarjeta', 'Tarjeta de crédito/débito'),
+        ('efectivo', 'Efectivo'),
+        ('mp', 'Mercado Pago'),
+    ], default='tarjeta')
+    ubicacion = models.CharField(max_length=255, blank=True, null=True)
     def __str__(self):
         return f"Order {self.id} by {self.user.username}"
 
