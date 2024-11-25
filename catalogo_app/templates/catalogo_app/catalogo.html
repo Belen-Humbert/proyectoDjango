@@ -22,9 +22,7 @@
         <ul>
           {% for categoria in categorias %}
           <li class="cursor-pointer p-2 hover:bg-gray-100">
-            <a href="{% url 'productCat' categoria.id %}"
-              >{{ categoria.nombre }}</a
-            >
+            <a href="{% url 'productCat' categoria.id %}">{{ categoria.nombre }}</a>
           </li>
           {% endfor %}
           <li class="cursor-pointer p-2 hover:bg-gray-100">
@@ -38,23 +36,36 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {% for producto in productos %}
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img
-              src="/static/images/imgprueba.jpg"
-              alt="imagen prueba"
-              class="w-full h-48 object-cover"
-            />
+            <!-- Verificar si el producto tiene una imagen -->
+            {% if producto.imagen %}
+              <img
+                src="{{ producto.imagen.url }}"
+                alt="{{ producto.nombre }}"
+                class="w-full h-48 object-cover"
+              />
+            {% else %}
+              <img
+                src="{% static 'images/default-product-image.jpg' %}"
+                alt="Imagen por defecto"
+                class="w-full h-48 object-cover"
+              />
+            {% endif %}
+            
             <div class="p-4">
               <h3 class="font-bold text-lg mb-2">{{ producto.nombre }}</h3>
               <p class="text-gray-600">{{ producto.categoria }}</p>
-              <p class="text-blue-600 font-bold mt-2">${{ producto.precio }}</p>
+              <p class="text-blue-600 font-bold mt-2 mb-4">${{ producto.precio }}</p>
               <a
                 href="{% url 'agregar_al_carrito' producto.id %}"
-                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-center"
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-center mt-1"
               >
                 Añadir al carrito
               </a>
             </div>
-          </div>
+            
+          
+        
+        </div>
           {% endfor %}
         </div>
       </main>

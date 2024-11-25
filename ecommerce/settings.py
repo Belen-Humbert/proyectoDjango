@@ -140,3 +140,6 @@ DEFAULT_CHARSET = 'utf-8'
 #redirige a / despues de cerrar sesion
 LOGOUT_REDIRECT_URL = 'home'
 
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
