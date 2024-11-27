@@ -11,7 +11,7 @@ def registrarUsuario(request):
         # Crear y guardar el user
 
         User.objects.create_user(username = username, email = email, password = password)
-        return redirect('/')
+        return redirect('/') #(función de Django para manejar usuarios de forma segura).
     
 
 def verificarUser(request):
@@ -19,7 +19,7 @@ def verificarUser(request):
         nombre = request.POST['username']
         contraseña = request.POST['password']
 
-        # Autenticar al usuario
+        # comprueba si las credenciales ingresadas coinciden con las de un usuario en la base de datos.
         user = authenticate(request, username=nombre, password=contraseña)
 
         if user is not None:  # Si la autenticación fue exitosa
